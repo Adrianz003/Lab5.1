@@ -154,21 +154,9 @@
         </form>
 
         <?php
-        
         try {
             $conn = new PDO("sqlsrv:server = tcp:servidor5-1.database.windows.net,1433; Database = sql5.1", "adrianservidor", "adrian123456.");
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-            // Crear tabla si no existe
-            $conn->exec("CREATE TABLE IF NOT EXISTS usuarios (
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                nombre VARCHAR(50) NOT NULL,
-                primer_apellido VARCHAR(50) NOT NULL,
-                segundo_apellido VARCHAR(50),
-                correo VARCHAR(100) NOT NULL,
-                telefono VARCHAR(20) NOT NULL,
-                fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            )");
 
             if (isset($_POST['enviar'])) {
                 $stmt = $conn->prepare("INSERT INTO usuarios (nombre, primer_apellido, segundo_apellido, correo, telefono)
@@ -192,7 +180,6 @@
                 echo '<script>document.querySelector(".response").style.display = "block";</script>';
             }
 
-            // Mostrar datos en tabla
             $stmt = $conn->query("SELECT * FROM usuarios ORDER BY id DESC");
 
             echo '<h2>Usuarios Registrados</h2>';
