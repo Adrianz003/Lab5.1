@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario de Registro</title>
     <style>
-        :root {
-            --primary-color: #4361ee;
-            --secondary-color: #3f37c9;
-            --light-color: #f8f9fa;
-            --dark-color: #212529;
-            --success-color: #4cc9f0;
-            --error-color: #f72585;
+       :root {
+            --primary-color: #2a9d8f;
+            --secondary-color: #21867a;
+            --light-color: #f0fdfb;
+            --dark-color: #264653;
+            --success-color: #2a9d8f;
+            --error-color: #e76f51;
         }
 
         * {
