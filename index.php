@@ -31,8 +31,7 @@
     }
 
     .form-container {
-        background-color: var(--secondary-color); /* Azul rey */
-        color: white; /* Texto blanco */
+        background-color: white;
         border-radius: 10px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         padding: 40px;
@@ -54,7 +53,7 @@
     label {
         display: block;
         margin-bottom: 8px;
-        color: white; /* Texto blanco para mejor contraste */
+        color: var(--dark-color);
         font-weight: 600;
     }
 
@@ -135,6 +134,7 @@
         background-color: #f1f1f1;
     }
 </style>
+
 
 </head>
 <body>
