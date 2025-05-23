@@ -5,133 +5,136 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario de Registro</title>
     <style>
-       :root {
-            --primary-color: #2a9d8f;
-            --secondary-color: #21867a;
-            --light-color: #f0fdfb;
-            --dark-color: #264653;
-            --success-color: #2a9d8f;
-            --error-color: #e76f51;
-        }
+    :root {
+        --primary-color: #000000;
+        --secondary-color: #0033cc;
+        --light-color: #f0f0f0;
+        --dark-color: #000000;
+        --success-color: #28a745;
+        --error-color: #dc3545;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-        body {
-            background-color: #f5f7fa;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 40px 20px;
-        }
+    body {
+        background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 20px;
+        min-height: 100vh;
+    }
 
-        .form-container {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-            width: 100%;
-            max-width: 600px;
-            margin-bottom: 40px;
-        }
+    .form-container {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        padding: 40px;
+        width: 100%;
+        max-width: 600px;
+        margin-bottom: 40px;
+    }
 
-        h1, h2 {
-            color: var(--primary-color);
-            margin-bottom: 30px;
-            text-align: center;
-        }
+    h1, h2 {
+        color: var(--primary-color);
+        margin-bottom: 30px;
+        text-align: center;
+    }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+    .form-group {
+        margin-bottom: 20px;
+    }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--dark-color);
-            font-weight: 500;
-        }
+    label {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--dark-color);
+        font-weight: 600;
+    }
 
-        input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e9ecef;
-            border-radius: 6px;
-            font-size: 16px;
-        }
+    input {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #ced4da;
+        border-radius: 6px;
+        font-size: 16px;
+    }
 
-        input:focus {
-            border-color: var(--primary-color);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
-        }
+    input:focus {
+        border-color: var(--secondary-color);
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(0, 51, 204, 0.2);
+    }
 
-        .btn-submit {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 14px;
-            font-size: 16px;
-            font-weight: 600;
-            border-radius: 6px;
-            cursor: pointer;
-            width: 100%;
-        }
+    .btn-submit {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 14px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 6px;
+        cursor: pointer;
+        width: 100%;
+        transition: background 0.3s ease;
+    }
 
-        .btn-submit:hover {
-            background-color: var(--secondary-color);
-        }
+    .btn-submit:hover {
+        background-color: var(--secondary-color);
+    }
 
-        .response {
-            margin-top: 30px;
-            padding: 20px;
-            border-radius: 6px;
-            background-color: #e8f4fd;
-            border-left: 4px solid var(--success-color);
-            display: none;
-        }
+    .response {
+        margin-top: 30px;
+        padding: 20px;
+        border-radius: 6px;
+        background-color: #e0f7f5;
+        border-left: 4px solid var(--success-color);
+        display: none;
+    }
 
-        .error {
-            border-left-color: var(--error-color) !important;
-            background-color: #fef0f5 !important;
-        }
+    .error {
+        border-left-color: var(--error-color) !important;
+        background-color: #fdecea !important;
+    }
 
-        .table-container {
-            width: 100%;
-            overflow-x: auto;
-            margin-top: 20px;
-        }
+    .table-container {
+        width: 100%;
+        overflow-x: auto;
+        margin-top: 20px;
+    }
 
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            max-width: 1000px;
-            background: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            border-radius: 8px;
-            overflow: hidden;
-        }
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        max-width: 1000px;
+        background: white;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
 
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-            white-space: nowrap;
-        }
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #eee;
+        white-space: nowrap;
+    }
 
-        th {
-            background-color: var(--primary-color);
-            color: white;
-        }
+    th {
+        background-color: var(--primary-color);
+        color: white;
+    }
 
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-    </style>
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+</style>
+
 </head>
 <body>
     <div class="form-container">
