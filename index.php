@@ -165,70 +165,60 @@
         </form>
 
         <?php
-$serverIp = "20.10.0.4";
-$database = "sql5.1";
-$username = "adrianservidor";
-$password = "adrian123456.";
+        try {
+            $conn = new PDO("sqlsrv:server = tcp:servidor5-1.database.windows.net,1433; Database = sql5.1", "adrianservidor", "adrian123456.");
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-try {
-    $conn = new PDO(
-        "sqlsrv:server = tcp:$serverIp,1433; Database = $database", 
-        $username, 
-        $password
-    );
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            if (isset($_POST['enviar'])) {
+                $stmt = $conn->prepare("INSERT INTO usuarios (nombre, primer_apellido, segundo_apellido, correo, telefono, fecha_registro)
+                                        VALUES (:nombre, :primer_apellido, :segundo_apellido, :correo, :telefono, GETDATE())");
+                $stmt->execute([
+                    ':nombre' => $_POST['nombre'],
+                    ':primer_apellido' => $_POST['primer_apellido'],
+                    ':segundo_apellido' => $_POST['segundo_apellido'],
+                    ':correo' => $_POST['correo'],
+                    ':telefono' => $_POST['telefono']
+                ]);
 
-    if (isset($_POST['enviar'])) {
-        $stmt = $conn->prepare("INSERT INTO usuarios (nombre, primer_apellido, segundo_apellido, correo, telefono, fecha_registro)
-                                VALUES (:nombre, :primer_apellido, :segundo_apellido, :correo, :telefono, GETDATE())");
-        $stmt->execute([
-            ':nombre' => $_POST['nombre'],
-            ':primer_apellido' => $_POST['primer_apellido'],
-            ':segundo_apellido' => $_POST['segundo_apellido'],
-            ':correo' => $_POST['correo'],
-            ':telefono' => $_POST['telefono']
-        ]);
+                echo '<div class="response">';
+                echo '<h3>Datos guardados correctamente:</h3>';
+                echo '<p><strong>Nombre:</strong> '.htmlspecialchars($_POST['nombre']).'</p>';
+                echo '<p><strong>Primer Apellido:</strong> '.htmlspecialchars($_POST['primer_apellido']).'</p>';
+                echo '<p><strong>Segundo Apellido:</strong> '.htmlspecialchars($_POST['segundo_apellido']).'</p>';
+                echo '<p><strong>Correo:</strong> '.htmlspecialchars($_POST['correo']).'</p>';
+                echo '<p><strong>Teléfono:</strong> '.htmlspecialchars($_POST['telefono']).'</p>';
+                echo '</div>';
+                echo '<script>document.querySelector(".response").style.display = "block";</script>';
+            }
 
-        echo '<div class="response">';
-        echo '<h3>Datos guardados correctamente:</h3>';
-        echo '<p><strong>Nombre:</strong> '.htmlspecialchars($_POST['nombre']).'</p>';
-        echo '<p><strong>Primer Apellido:</strong> '.htmlspecialchars($_POST['primer_apellido']).'</p>';
-        echo '<p><strong>Segundo Apellido:</strong> '.htmlspecialchars($_POST['segundo_apellido']).'</p>';
-        echo '<p><strong>Correo:</strong> '.htmlspecialchars($_POST['correo']).'</p>';
-        echo '<p><strong>Teléfono:</strong> '.htmlspecialchars($_POST['telefono']).'</p>';
-        echo '</div>';
-        echo '<script>document.querySelector(".response").style.display = "block";</script>';
-    }
+            $stmt = $conn->query("SELECT * FROM usuarios ORDER BY id DESC");
 
-    $stmt = $conn->query("SELECT * FROM usuarios ORDER BY id DESC");
+            echo '<h2>Usuarios Registrados</h2>';
+            echo '<div class="table-container">';
+            echo '<table>';
+            echo '<tr><th>ID</th><th>Nombre</th><th>Primer Apellido</th><th>Segundo Apellido</th><th>Correo</th><th>Teléfono</th><th>Fecha</th></tr>';
+            while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                echo '<tr>';
+                echo '<td>'.$fila['id'].'</td>';
+                echo '<td>'.htmlspecialchars($fila['nombre']).'</td>';
+                echo '<td>'.htmlspecialchars($fila['primer_apellido']).'</td>';
+                echo '<td>'.htmlspecialchars($fila['segundo_apellido']).'</td>';
+                echo '<td>'.htmlspecialchars($fila['correo']).'</td>';
+                echo '<td>'.htmlspecialchars($fila['telefono']).'</td>';
+                echo '<td>'.$fila['fecha_registro'].'</td>';
+                echo '</tr>';
+            }
+            echo '</table>';
+            echo '</div>';
 
-    echo '<h2>Usuarios Registrados</h2>';
-    echo '<div class="table-container">';
-    echo '<table>';
-    echo '<tr><th>ID</th><th>Nombre</th><th>Primer Apellido</th><th>Segundo Apellido</th><th>Correo</th><th>Teléfono</th><th>Fecha</th></tr>';
-    while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        echo '<tr>';
-        echo '<td>'.$fila['id'].'</td>';
-        echo '<td>'.htmlspecialchars($fila['nombre']).'</td>';
-        echo '<td>'.htmlspecialchars($fila['primer_apellido']).'</td>';
-        echo '<td>'.htmlspecialchars($fila['segundo_apellido']).'</td>';
-        echo '<td>'.htmlspecialchars($fila['correo']).'</td>';
-        echo '<td>'.htmlspecialchars($fila['telefono']).'</td>';
-        echo '<td>'.$fila['fecha_registro'].'</td>';
-        echo '</tr>';
-    }
-    echo '</table>';
-    echo '</div>';
-
-} catch (PDOException $e) {
-    echo '<div class="response error">';
-    echo '<h3>Error de conexión o ejecución:</h3>';
-    echo '<p>'.htmlspecialchars($e->getMessage()).'</p>';
-    echo '</div>';
-    echo '<script>document.querySelector(".response").style.display = "block";</script>';
-}
-?>
-
+        } catch (PDOException $e) {
+            echo '<div class="response error">';
+            echo '<h3>Error de conexión o ejecución:</h3>';
+            echo '<p>'.htmlspecialchars($e->getMessage()).'</p>';
+            echo '</div>';
+            echo '<script>document.querySelector(".response").style.display = "block";</script>';
+        }
+        ?>
     </div>
 </body>
 </html>
