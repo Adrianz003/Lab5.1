@@ -201,11 +201,7 @@ try {
     $error = $e->getMessage();
 }
 ?>
-Y dentro del HTML, reemplaza esta parte de tu PHP en el cuerpo por lo siguiente (dentro de <body>):
 
-php
-Copiar
-Editar
 <?php
 if (isset($_SESSION['mensaje'])) {
     $m = $_SESSION['mensaje'];
