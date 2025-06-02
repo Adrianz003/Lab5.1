@@ -182,7 +182,7 @@
 
                 echo '<div class="response">';
                 echo '<h3>Datos guardados correctamente:</h3>';
-                echo '<p><strong>Nombre:</strong> '.htmlspecialchars($_POST['nombre']).'</p>';
+                echo '<p><strong>Nombre:</strong> '.htmlspecialchars($_POST['nombre'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8', true).'</p>';
                 echo '<p><strong>Primer Apellido:</strong> '.htmlspecialchars($_POST['primer_apellido']).'</p>';
                 echo '<p><strong>Segundo Apellido:</strong> '.htmlspecialchars($_POST['segundo_apellido']).'</p>';
                 echo '<p><strong>Correo:</strong> '.htmlspecialchars($_POST['correo']).'</p>';
