@@ -141,9 +141,11 @@ th, td {
 
 </head>
 <body>
+    <!-- CONTENEDOR DEL FORMULARIO -->
     <div class="form-container">
         <h1>Registro de Usuario</h1>
         <form method="post" action="">
+            <!-- Campos del formulario -->
             <div class="form-group">
                 <label for="nombre">Nombre(s)</label>
                 <input type="text" id="nombre" name="nombre" required>
@@ -193,27 +195,41 @@ th, td {
                 echo '</div>';
                 echo '<script>document.querySelector(".response").style.display = "block";</script>';
             }
+        ?>
+    </div> <!-- FIN DEL FORMULARIO -->
 
-            $stmt = $conn->query("SELECT * FROM usuarios ORDER BY id DESC");
-
-            echo '<h2>Usuarios Registrados</h2>';
-            echo '<div class="table-container">';
-            echo '<table>';
-            echo '<tr><th>ID</th><th>Nombre</th><th>Primer Apellido</th><th>Segundo Apellido</th><th>Correo</th><th>Teléfono</th><th>Fecha</th></tr>';
-            while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                echo '<tr>';
-                echo '<td>'.$fila['id'].'</td>';
-                echo '<td>'.htmlspecialchars($fila['nombre']).'</td>';
-                echo '<td>'.htmlspecialchars($fila['primer_apellido']).'</td>';
-                echo '<td>'.htmlspecialchars($fila['segundo_apellido']).'</td>';
-                echo '<td>'.htmlspecialchars($fila['correo']).'</td>';
-                echo '<td>'.htmlspecialchars($fila['telefono']).'</td>';
-                echo '<td>'.$fila['fecha_registro'].'</td>';
-                echo '</tr>';
-            }
-            echo '</table>';
-            echo '</div>';
-
+    <!-- NUEVO CONTENEDOR DE LA TABLA -->
+    <div class="table-container">
+        <div style="padding: 30px; background-color: white; border-radius: 10px;">
+            <h2 style="text-align:center; color: var(--primary-color); margin-bottom: 20px;">Usuarios Registrados</h2>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Primer Apellido</th>
+                    <th>Segundo Apellido</th>
+                    <th>Correo</th>
+                    <th>Teléfono</th>
+                    <th>Fecha</th>
+                </tr>
+                <?php
+                $stmt = $conn->query("SELECT * FROM usuarios ORDER BY id DESC");
+                while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    echo '<tr>';
+                    echo '<td>'.$fila['id'].'</td>';
+                    echo '<td>'.htmlspecialchars($fila['nombre']).'</td>';
+                    echo '<td>'.htmlspecialchars($fila['primer_apellido']).'</td>';
+                    echo '<td>'.htmlspecialchars($fila['segundo_apellido']).'</td>';
+                    echo '<td>'.htmlspecialchars($fila['correo']).'</td>';
+                    echo '<td>'.htmlspecialchars($fila['telefono']).'</td>';
+                    echo '<td>'.$fila['fecha_registro'].'</td>';
+                    echo '</tr>';
+                }
+                ?>
+            </table>
+        </div>
+    </div>
+    <?php
         } catch (PDOException $e) {
             echo '<div class="response error">';
             echo '<h3>Error de conexión o ejecución:</h3>';
@@ -221,7 +237,6 @@ th, td {
             echo '</div>';
             echo '<script>document.querySelector(".response").style.display = "block";</script>';
         }
-        ?>
-    </div>
+    ?>
 </body>
 </html>
