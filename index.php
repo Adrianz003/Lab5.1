@@ -170,16 +170,18 @@
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             if (isset($_POST['enviar'])) {
-                $stmt = $conn->prepare("INSERT INTO usuarios (nombre, primer_apellido, segundo_apellido, correo, telefono, fecha_registro)
-                                        VALUES (:nombre, :primer_apellido, :segundo_apellido, :correo, :telefono, GETDATE())");
+                $stmt = $conn->prepare("INSERT INTO usuarios (...) VALUES (...)");
                 $stmt->execute([
-                    ':nombre' => $_POST['nombre'],
-                    ':primer_apellido' => $_POST['primer_apellido'],
-                    ':segundo_apellido' => $_POST['segundo_apellido'],
-                    ':correo' => $_POST['correo'],
-                    ':telefono' => $_POST['telefono']
-                ]);
+                ':nombre' => $_POST['nombre'],
+                ':primer_apellido' => $_POST['primer_apellido'],
+                ':segundo_apellido' => $_POST['segundo_apellido'],
+                ':correo' => $_POST['correo'],
+                ':telefono' => $_POST['telefono']
+               ]);
 
+                header("Location: " . $_SERVER['PHP_SELF']);
+                exit();
+                
                 echo '<div class="response">';
                 echo '<h3>Datos guardados correctamente:</h3>';
                 echo '<p><strong>Nombre:</strong> '.htmlspecialchars($_POST['nombre'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8', true).'</p>';
